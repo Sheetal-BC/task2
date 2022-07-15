@@ -1,0 +1,104 @@
+body{
+    background-image: url("499328.jpg");
+  background-size: 100%;
+
+}
+.heading{
+    padding-top: 10px;
+   text-align: center;
+   color: darkgreen;
+}
+hr{
+   margin: 5px;
+  
+}
+.ans{
+    text-align: center;
+}
+
+form{
+    background-color: lightgreen;
+    border: 2px solid darkgreen;
+    border-radius: 10px;
+    height: 350px;
+    width: 500px;
+    margin: auto  ;
+    box-shadow: 0px 5px 5px 0 darkgreen;
+    margin-bottom: 10px;
+    
+}
+label{
+    padding: 5px;
+}
+ input{
+    width: 480px;
+    height: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border: 1px solid darkgreen;
+    border-radius: 3px;
+
+} 
+select{
+    width: 487px;
+    height: 25px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border: 1px solid darkgreen;
+    border-radius: 3px;
+   
+    
+}
+.tosel{
+    color: gray;
+}
+.btn{
+    text-align: center;
+    background-color: darkgreen;
+    height: 30px;
+    width: 487px;
+    color: white;
+    margin-top: 25px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0px 2px 2px 0 darkgreen;
+    padding-left: 50px;
+
+}
+.listexpenses{
+    color: darkgreen;
+    font-weight: bold;
+    font-size:19px;
+    padding: 10px 10px 10px 10px;
+    
+    margin: auto;
+    list-style: none;
+    background-color: lightgreen;
+    width: 50%;
+    border: 2px solid darkgreen;
+    box-shadow: 0px 5px 5px 0 darkgreen;
+    border-radius: 10px;
+
+  }
+
+  
+  .deletbutton{
+      background-color: darkred;
+      border: none;
+      color: white;
+      height: 30px;
+      width: 125px;
+      border-radius: 3px;
+      margin-top: 3px;
+    
+}
+.editbutton{
+    background-color: darkgreen;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 125px;
+    border-radius: 3px;
+    margin-top: 3px;
+}

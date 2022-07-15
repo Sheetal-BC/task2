@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form onsubmit="saveToLocalStorage(event)">
+        <h1 class="heading">Expense Tracker</h1>
+        <hr>
+        <label>Choose Expense Amount</label><br>
+        <input id = 'amount' type="number" name="amount" required/><br>
+        <label>Choose Discription</label><br>
+        <input id = 'discription' type="text" name="addDiscription" required/><br>
+        <label for="category">Choose a Catagory</label><br>
+        <select name="category"  id="category" required>
+            <option value="selection" class ="tosel">Please select an option</option>
+            <option value="Electricity">Electricity</option>
+            <option value="Movies">Movies</option>
+            <option value="On Vacation">On vacation</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Mobile Bill">Mobile Bills</option>
+            <option value="EMI">EMI</option>
+            <option value="Food">Food</option>
+            <option value="Shoping">Shoping</option>
+            <option value="Others">Others</option>
+     </select>
+          <button class="btn">Add Expenses</button>
+    </form> 
+    <ul id = 'listOfExpenses' class="listexpenses"></ul> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script> 
+    <script>
+        function saveToLocalStorage(event) {
+           event.preventDefault();
+           const addAmount = event.target.amount.value;
+           const discription= event.target.addDiscription.value;
+           const category = event.target.category.value;
+          
+           const obj = {
+               addAmount,
+               discription,
+               category
+              
+           }
+          const sendPostRequest=async() =>{ 
+           try {
+              let response = await axios.post("https://crudcrud.com/api/a3ea486c674041a1a64a5910fb3dda61/expenseslist",obj);
+              showNewExpenseOnScreen(response.data)
+                 console.log(response);
+           } 
+           catch (error) {
+            document.body.innerHTML = document.body.innerHTML + "<h4>Somthing went wrong</h4>";
+            console.log(error);
+           }
+        }
+       sendPostRequest();
+       }
+
+       window.addEventListener("DOMContentLoaded", () => {
+        const sendGetRequest=async() =>{ 
+            try {
+            let res =await axios.get("https://crudcrud.com/api/a3ea486c674041a1a64a5910fb3dda61/expenseslist");
+            for( let i=0; i < res.data.length; i++){
+                    showNewExpenseOnScreen(res.data[i]);
+                } 
+        } catch (error) {
+            console.log(error); 
+        }
+    }
+    sendGetRequest();       
+             
+    })
+
+       function showNewExpenseOnScreen(user){
+           document.getElementById('discription').value = '';
+           document.getElementById('amount').value = '';
+           document.getElementById('category').value ='';
+         
+
+
+           const parentNode = document.getElementById('listOfExpenses');
+           const childHTML = `<li id=${user._id} > &#8377 ${user.addAmount}  ${user.discription} ${user.category}
+                                       <button class='deletbutton' onclick=deleteExpense('${user._id}')> Delete Expense </button>
+                                       <button class='editbutton' onclick=editExpenseDetails('${user.discription}','${user.addAmount}','${user.category}','${user._id}')>Edit Expense </button><\hr>
+                            </li>`
+
+           parentNode.innerHTML = parentNode.innerHTML + childHTML;
+       }
+       // Edit expense details
+       function editExpenseDetails(addDiscription, amount, category, userId ){
+           document.getElementById('discription').value = addDiscription;
+           document.getElementById('amount').value = amount;
+           document.getElementById('category').value = category;
+         
+
+           deleteExpense(userId);
+
+
+       }
+
+       // deleteEpense
+
+       function deleteExpense(userId){
+        const sendDeleteRequest=async() =>{ 
+        
+        try {
+            let res = await axios.delete(`https://crudcrud.com/api/a3ea486c674041a1a64a5910fb3dda61/expenseslist/${userId}`)
+            removeUserFromScreen(userId)
+        } catch (error) {
+            console.log(err);
+        }
+    }
+    sendDeleteRequest();
+
+       }
+
+       function removeUserFromScreen(userId){
+           const parentNode = document.getElementById('listOfExpenses');
+           const childNodeToBeDeleted = document.getElementById(userId);
+
+           parentNode.removeChild(childNodeToBeDeleted)
+       }
+
+
+
+
+   </script>  
+
+
+</body>
+</html>
